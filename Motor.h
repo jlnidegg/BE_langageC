@@ -10,28 +10,31 @@
   Complete project details at https://RandomNerdTutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/
 *********/
 #include <Arduino.h>
-
-int Obstacle = 0; // le état bouton a 1
-const int relais_moteur = D8; // // le relais est connecté à la broche 1 de la carte Adruino
-
+#include <capteur_ultrason_distance.h>
+#define pin_relais_moteur D8
 
 
 class Motor {
 public:
-
+    int Obstacle = 0; // le état bouton a 1
     void setup(){
-        pinMode(relais_moteur, OUTPUT);
+        pinMode(pin_relais_moteur, OUTPUT);
     }
 
-    void loop_motor(){
-        Obstacle = 0;
+    void loop_motor(int distance){
+        if (distance<6){
+            Obstacle = 1;
+        }
+        else{
+            Obstacle = 0;
+        }
 
         if (Obstacle == 0){  // Pas d'obstacle
             //digitalWrite(relais_moteur, HIGH); // Le moteur se met à tourner
-            digitalWrite(relais_moteur, HIGH); //rapport cyclique a 50%
+            digitalWrite(pin_relais_moteur, HIGH); //rapport cyclique a 50%
         }
         else {  // On relache le bouton poussoir
-            digitalWrite(relais_moteur, LOW); // Le moteur s'arrête de tourner
+            digitalWrite(pin_relais_moteur, LOW); // Le moteur s'arrête de tourner
         }
     }
 };

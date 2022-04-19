@@ -8,10 +8,11 @@
 #include <Arduino.h>
 
 class capteur_ultrason_distance {
+public:
     int PingPin = D3;
     int BaudRate = 9600;
+    int distance = 0;
 
-public:
     void setup() {
         Serial.begin(BaudRate);
 
@@ -34,10 +35,10 @@ public:
         } else  {
             Serial.print("Distance : ");
             Serial.print(Convert_Time_Space(Duration));  // convert the duration into distance
-            int distance = Convert_Time_Space(Duration);
+            distance = Convert_Time_Space(Duration);
             Serial.println(" cm");
         }
-        //delay (1000) ;
+        delay (1000) ;
     }
 
     unsigned long Convert_Time_Space(const unsigned long fnDuration ) {
@@ -45,11 +46,6 @@ public:
         // and taking into account temperature and humidity
         // I used 29 microseconds per cm.
         return fnDuration / 29 / 2 ;
-    }
-
-    int capture_distance(){
-
-
     }
 
 };

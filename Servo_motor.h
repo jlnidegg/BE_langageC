@@ -25,7 +25,6 @@ class Servo_motor {
     Servo monServo;  //création de l'objet servo
 
     void setup() {
-
         monServo.attach(pinServo);
 
         // pour affichage dans le moniteur série
