@@ -6,37 +6,42 @@
 #define BEC___CAPTEUR_ULTRASON_DISTANCE_H
 
 #include <Arduino.h>
+#include <Setup.h>
 
-class capteur_ultrason_distance {
+/*********
+ * La classe capteur_ultrason_distance gère la détection de la distance entre la voiture et un obstacle potentiel
+*********/
+
+class capteur_ultrason_distance : public Setup{
 public:
-    int PingPin = D3;
-    int BaudRate = 9600;
     int distance = 0;
 
-    void setup() {
-        Serial.begin(BaudRate);
-
+    capteur_ultrason_distance(){    // Conctructeur de l'objet Capteur Ultrason
+        pin = D3; //used pin
+        frequency = 9600; //Specified in Hz
+        Serial.begin(frequency);
     }
+
 
     void loop() {
 
-        pinMode(PingPin, OUTPUT);
-        digitalWrite(PingPin, LOW);  // init sensor to ensure clean HIGH pulse
+        pinMode(pin, OUTPUT);
+        digitalWrite(pin, LOW);  // init sensor to ensure clean HIGH pulse
         delayMicroseconds(2);
-        digitalWrite(PingPin, HIGH);  // make the sensor send a pulse
+        digitalWrite(pin, HIGH);  // make the sensor send a pulse
         delayMicroseconds(5);
-        digitalWrite(PingPin, LOW);  // Set LOW again
-        pinMode(PingPin, INPUT);  // Get ready to capture the duration of the resulting pulse
+        digitalWrite(pin, LOW);  // Set LOW again
+        pinMode(pin, INPUT);  // Get ready to capture the duration of the resulting pulse
         // Capture how long the pin stays in HIGH state.
-        unsigned long Duration = pulseIn(PingPin, HIGH);
+        unsigned long Duration = pulseIn(pin, HIGH);
 
-        if (Duration == 0) {
+        if (Duration == 0) {    // Si la durée aller-retour est trop courte, cela signifie que le capteur ne renvoie pas une bonne donnée
             Serial.println("No Pulse received from the sensor");
         } else  {
-            Serial.print("Distance : ");
-            Serial.print(Convert_Time_Space(Duration));  // convert the duration into distance
-            distance = Convert_Time_Space(Duration);
-            Serial.println(" cm");
+            //Serial.print("Distance : ");
+            //Serial.print(Convert_Time_Space(Duration)); 
+            distance = Convert_Time_Space(Duration);  // convert the duration into distance
+            //Serial.println(" cm");
         }
         delay (1000) ;
     }
