@@ -3,6 +3,6 @@
 
 /*************************************************************************************************/
 
-- PENSER A ALLER DANS LA BRANCHE MASTER POUR LE PROJET (CODES, MAINS, RAPPORT)
+- PENSER A ALLER DANS LA BRANCHE MASTER POUR LE PROJET (CODES, MAINS, RAPPORT, VIDEO)
 
 /*************************************************************************************************/
